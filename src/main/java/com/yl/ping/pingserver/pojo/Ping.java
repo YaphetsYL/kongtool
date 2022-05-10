@@ -1,8 +1,11 @@
-package com.example.ping.pingserver;
+package com.yl.ping.pingserver.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Lei
@@ -12,12 +15,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@ApiModel
 public class Ping {
 
-    @NonNull
+    @NotNull
+    @ApiModelProperty("host ip or domain")
     private String host;
 
     public Ping() {
+        //do not delete
     }
 
     public Ping(String host) {
