@@ -3,6 +3,7 @@ package com.yl.ping.pingserver.controller;
 import com.yl.ping.pingserver.pojo.Telnet;
 import com.yl.ping.pingserver.util.ValidateUtil;
 import lombok.extern.log4j.Log4j2;
+import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,8 @@ import java.net.Socket;
 public class TelnetController {
 
     private static final String ON_PORT = " on Port ";
+    private static final String ERROR = "error";
+    private static final String RESULT = "result";
 
     @PostMapping(value = "/telnet", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> pingServer(@Valid @RequestBody Telnet telnet) {
@@ -35,6 +38,7 @@ public class TelnetController {
 
         String host = telnet.getHost();
         int port = telnet.getPort();
+        JSONObject json = new JSONObject();
         //ip
         if (ValidateUtil.validateHost(host)) {
 
@@ -45,18 +49,20 @@ public class TelnetController {
                 isConnected = telnetSocket.isConnected();
             } catch (IOException e) {
                 log.error(e.getMessage());
-                return new ResponseEntity<>("{\"result\": \"Telnet Fail\"}", httpHeaders, HttpStatus.BAD_REQUEST);
+                json.put(ERROR, e.getMessage());
+                return new ResponseEntity<>(json.toString(), httpHeaders, HttpStatus.BAD_REQUEST);
             }
             if (isConnected) {
-                log.info("Host " + host + ON_PORT + port + " is reachable");
-                return new ResponseEntity<>("{\"result\": \"Telnet Success\"}", httpHeaders, HttpStatus.OK);
+                log.info("Telnet Host " + host + ON_PORT + port + " successfully");
+                json.put(RESULT, "Telnet Host " + host + ON_PORT + port + " successfully");
+                return new ResponseEntity<>(json.toString(), httpHeaders, HttpStatus.OK);
             }
             log.info("Host " + host + ON_PORT + port + " is unreachable");
             return new ResponseEntity<>("{\"result\": \"Telnet Fail; Unexpected Error\"}", httpHeaders, HttpStatus.BAD_REQUEST);
 
         } else {
-            log.info("Invalid ip or domain");
-            return new ResponseEntity<>("{\"result\": \"Invalid ip or domain\"}", httpHeaders, HttpStatus.BAD_REQUEST);
+            log.error("Invalid ip or domain");
+            return new ResponseEntity<>("{\"error\": \"Invalid ip or domain\"}", httpHeaders, HttpStatus.BAD_REQUEST);
         }
 
 
