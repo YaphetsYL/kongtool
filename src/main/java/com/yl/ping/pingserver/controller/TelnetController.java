@@ -28,7 +28,6 @@ import java.net.Socket;
 public class TelnetController {
 
     private static final String ON_PORT = " on Port ";
-    private static final String ERROR = "error";
     private static final String RESULT = "result";
 
     @PostMapping(value = "/telnet", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,7 +48,7 @@ public class TelnetController {
                 isConnected = telnetSocket.isConnected();
             } catch (IOException e) {
                 log.error(e.getMessage());
-                json.put(ERROR, e.getMessage());
+                json.put(RESULT, e.getMessage());
                 return new ResponseEntity<>(json.toString(), httpHeaders, HttpStatus.BAD_REQUEST);
             }
             if (isConnected) {
