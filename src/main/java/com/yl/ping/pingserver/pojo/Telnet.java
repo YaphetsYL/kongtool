@@ -23,6 +23,7 @@ public class Telnet {
     private String host;
 
     @NotNull
+    @ApiModelProperty("port number")
     private int port;
 
     public Telnet() {

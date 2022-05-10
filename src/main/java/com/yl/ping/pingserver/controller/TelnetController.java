@@ -2,6 +2,7 @@ package com.yl.ping.pingserver.controller;
 
 import com.yl.ping.pingserver.pojo.Telnet;
 import com.yl.ping.pingserver.util.ValidateUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +31,7 @@ public class TelnetController {
     private static final String ON_PORT = " on Port ";
     private static final String RESULT = "result";
 
+    @ApiOperation("Telnet")
     @PostMapping(value = "/telnet", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> pingServer(@Valid @RequestBody Telnet telnet) {
         HttpHeaders httpHeaders = new HttpHeaders();
