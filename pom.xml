@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>pingserver</name>
     <properties>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -60,6 +60,13 @@
             <version>20220320</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/dnsjava/dnsjava -->
+        <dependency>
+            <groupId>dnsjava</groupId>
+            <artifactId>dnsjava</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
 
         <!--  &lt;!&ndash; https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 &ndash;&gt;
           <dependency>
@@ -96,3 +103,8 @@
     </build>
 
 </project>
+
+      
+      
+      
+      

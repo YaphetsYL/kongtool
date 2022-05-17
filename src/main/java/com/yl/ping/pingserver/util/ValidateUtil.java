@@ -12,8 +12,8 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 
 @UtilityClass
 public class ValidateUtil {
-    private InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
-    private DomainValidator domainValidator = DomainValidator.getInstance();
+    private final InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
+    private final DomainValidator domainValidator = DomainValidator.getInstance();
 
     public boolean validateHost(String host) {
 
@@ -21,6 +21,14 @@ public class ValidateUtil {
             return false;
         }
         return inetAddressValidator.isValid(host) || domainValidator.isValid(host);
+    }
+
+    public boolean isDomain(String host) {
+
+        if (host == null || host.isEmpty() || host.trim().isEmpty()) {
+            return false;
+        }
+        return domainValidator.isValid(host);
     }
 
 }
